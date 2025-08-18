@@ -1,344 +1,793 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Expenso — Your Smart Money Sidekick</title>
-  <meta name="description" content="Expenso is an AI-enhanced personal finance app with receipt scanning, budgeting, bill reminders, investment tracking, and smart insights." />
-  <meta name="theme-color" content="#6c5ce7" />
-  <meta name="author" content="Arun K Nair" />
-  <style>
-    /* ---------- THEME ---------- */
-    :root{
-      --bg:#070b18;
-      --bg-2:#0f1429;
-      --card:#111633;
-      --card-2:#171d3f;
-      --text:#eef1ff;
-      --text-dim:#cdd5ff;
-      --muted:#9aa3c7;
-      --primary:#6c5ce7;
-      --accent:#22d3ee;
-      --success:#10b981;
-      --border: 1px solid rgba(255,255,255,.08);
-      --shadow-lg: 0 30px 80px rgba(0,0,0,.5);
-      --shadow-sm: 0 10px 30px rgba(0,0,0,.35);
-      --radius-2xl: 28px;
-      --radius-xl: 20px;
-      --radius-lg: 14px;
-      --maxw: 1200px;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      color:var(--text);
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      line-height:1.6;
-      background:
-        radial-gradient(1200px 800px at 10% -10%, #1b1f3f 0%, transparent 60%),
-        radial-gradient(800px 500px at 90% 10%, #0d233b 0%, transparent 60%),
-        linear-gradient(135deg, var(--bg) 0%, var(--bg-2) 100%);
-      overflow-x:hidden;
-    }
-    a{color:inherit;text-decoration:none}
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Expenso — Your Smart Money Sidekick</title>
+    <meta
+      name="description"
+      content="Expenso is an AI-enhanced personal finance app with receipt scanning, budgeting, bill reminders, investment tracking, and smart insights."
+    />
+    <meta name="theme-color" content="#6c5ce7" />
+    <meta name="author" content="Arun K Nair" />
+    <style>
+      /* ---------- THEME ---------- */
+      :root {
+        --bg: #070b18;
+        --bg-2: #0f1429;
+        --card: #111633;
+        --card-2: #171d3f;
+        --text: #eef1ff;
+        --text-dim: #cdd5ff;
+        --muted: #9aa3c7;
+        --primary: #6c5ce7;
+        --accent: #22d3ee;
+        --success: #10b981;
+        --border: 1px solid rgba(255, 255, 255, 0.08);
+        --shadow-lg: 0 30px 80px rgba(0, 0, 0, 0.5);
+        --shadow-sm: 0 10px 30px rgba(0, 0, 0, 0.35);
+        --radius-2xl: 28px;
+        --radius-xl: 20px;
+        --radius-lg: 14px;
+        --maxw: 1200px;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        color: var(--text);
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+          Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+        line-height: 1.6;
+        background: radial-gradient(
+            1200px 800px at 10% -10%,
+            #1b1f3f 0%,
+            transparent 60%
+          ),
+          radial-gradient(800px 500px at 90% 10%, #0d233b 0%, transparent 60%),
+          linear-gradient(135deg, var(--bg) 0%, var(--bg-2) 100%);
+        overflow-x: hidden;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
 
-    /* ---------- DECOR ---------- */
-    .orbs{
-      position:fixed; inset:0; pointer-events:none; z-index:0;
-      overflow:hidden;
-    }
-    .orb{
-      position:absolute; filter: blur(60px); opacity:.25;
-      border-radius:50%;
-      animation: float 18s ease-in-out infinite;
-    }
-    .orb.one{ width:380px; height:380px; left:-80px; top:-60px; background: #6c5ce7;}
-    .orb.two{ width:420px; height:420px; right:-120px; top:120px; background:#22d3ee; animation-delay: -4s;}
-    .orb.three{ width:360px; height:360px; left:20%; bottom:-120px; background:#10b981; animation-delay:-8s;}
-    @keyframes float{
-      0%,100%{ transform: translateY(0) translateX(0) scale(1);}
-      50%{ transform: translateY(-20px) translateX(10px) scale(1.03);}
-    }
-    @media (prefers-reduced-motion: reduce){
-      .orb{ animation: none; }
-    }
+      /* ---------- DECOR ---------- */
+      .orbs {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+        overflow: hidden;
+      }
+      .orb {
+        position: absolute;
+        filter: blur(60px);
+        opacity: 0.25;
+        border-radius: 50%;
+        animation: float 18s ease-in-out infinite;
+      }
+      .orb.one {
+        width: 380px;
+        height: 380px;
+        left: -80px;
+        top: -60px;
+        background: #6c5ce7;
+      }
+      .orb.two {
+        width: 420px;
+        height: 420px;
+        right: -120px;
+        top: 120px;
+        background: #22d3ee;
+        animation-delay: -4s;
+      }
+      .orb.three {
+        width: 360px;
+        height: 360px;
+        left: 20%;
+        bottom: -120px;
+        background: #10b981;
+        animation-delay: -8s;
+      }
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0) translateX(0) scale(1);
+        }
+        50% {
+          transform: translateY(-20px) translateX(10px) scale(1.03);
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .orb {
+          animation: none;
+        }
+      }
 
-    /* ---------- LAYOUT ---------- */
-    .container{max-width:var(--maxw);margin:0 auto;padding:24px;position:relative;z-index:1}
-    header{
-      position: sticky; top: 0; z-index: 50;
-      backdrop-filter: blur(16px);
-      background: linear-gradient(180deg, rgba(10,12,26,.75), rgba(10,12,26,.35));
-      border-bottom: var(--border);
-    }
-    .nav{
-      display:flex; align-items:center; justify-content:space-between; gap:16px;
-    }
-    .logo{display:flex;align-items:center;gap:12px;}
-    .logo img{width:56px;height:56px;border-radius:8px}
-    .logo span{font-weight:900;font-size:20px;letter-spacing:.3px}
-    .top-cta{
-      display:flex; gap:12px; align-items:center; flex-wrap:wrap;
-    }
-    .pill{
-      display:inline-flex; align-items:center; gap:10px;
-      padding:10px 14px; border-radius:999px;
-      background:rgba(255,255,255,.06); border:var(--border);
-      font-weight:600; color:var(--text-dim);
-    }
-    .pill .dot{width:8px;height:8px;border-radius:50%; background:var(--success); box-shadow:0 0 8px var(--success);}
+      /* ---------- LAYOUT ---------- */
+      .container {
+        max-width: var(--maxw);
+        margin: 0 auto;
+        padding: 24px;
+        position: relative;
+        z-index: 1;
+      }
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        backdrop-filter: blur(16px);
+        background: linear-gradient(
+          180deg,
+          rgba(10, 12, 26, 0.75),
+          rgba(10, 12, 26, 0.35)
+        );
+        border-bottom: var(--border);
+      }
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .logo img {
+        width: 56px;
+        height: 56px;
+        border-radius: 8px;
+      }
+      .logo span {
+        font-weight: 900;
+        font-size: 20px;
+        letter-spacing: 0.3px;
+      }
+      .top-cta {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 14px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.06);
+        border: var(--border);
+        font-weight: 600;
+        color: var(--text-dim);
+      }
+      .pill .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--success);
+        box-shadow: 0 0 8px var(--success);
+      }
 
-    /* ---------- HERO ---------- */
-    .hero{
-      display:grid; grid-template-columns: 1.05fr .95fr; gap:48px; align-items:center;
-      padding:56px 0 10px;
-    }
-    .eyebrow{
-      display:inline-flex; gap:8px; align-items:center;
-      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-      border:var(--border); border-radius:999px; padding:8px 12px; color:var(--text-dim); font-weight:600; font-size:12px;
-    }
-    .eyebrow .spark{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent)}
-    .headline{
-      font-size:clamp(32px,6vw,56px);
-      line-height:1.05; margin:14px 0 12px; font-weight:900;
-      letter-spacing:.2px;
-    }
-    .sub{font-size:clamp(16px,2.6vw,20px);color:var(--text-dim);max-width:60ch}
-    .actions{margin:26px 0 18px; display:flex; gap:14px; flex-wrap:wrap;}
-    .badge{
-      display:inline-flex;align-items:center;padding:14px 18px;
-      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
-      border:var(--border);border-radius:14px;box-shadow:var(--shadow-sm);
-      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
-      font-weight:800;
-    }
-    .badge:hover{ transform: translateY(-2px); box-shadow:var(--shadow-lg); }
-    .badge img{width:42px;height:42px;border-radius:6px;margin-right:10px}
+      /* ---------- HERO ---------- */
+      .hero {
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: 48px;
+        align-items: center;
+        padding: 56px 0 10px;
+      }
+      .eyebrow {
+        display: inline-flex;
+        gap: 8px;
+        align-items: center;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.06),
+          rgba(255, 255, 255, 0.02)
+        );
+        border: var(--border);
+        border-radius: 999px;
+        padding: 8px 12px;
+        color: var(--text-dim);
+        font-weight: 600;
+        font-size: 12px;
+      }
+      .eyebrow .spark {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--accent);
+        box-shadow: 0 0 10px var(--accent);
+      }
+      .headline {
+        font-size: clamp(32px, 6vw, 56px);
+        line-height: 1.05;
+        margin: 14px 0 12px;
+        font-weight: 900;
+        letter-spacing: 0.2px;
+      }
+      .sub {
+        font-size: clamp(16px, 2.6vw, 20px);
+        color: var(--text-dim);
+        max-width: 60ch;
+      }
+      .actions {
+        margin: 26px 0 18px;
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 14px 18px;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.08),
+          rgba(255, 255, 255, 0.04)
+        );
+        border: var(--border);
+        border-radius: 14px;
+        box-shadow: var(--shadow-sm);
+        transition: transform 0.2s ease, box-shadow 0.2s ease,
+          background 0.2s ease;
+        font-weight: 800;
+      }
+      .badge:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-lg);
+      }
+      .badge img {
+        width: 42px;
+        height: 42px;
+        border-radius: 6px;
+        margin-right: 10px;
+      }
 
-    .disclaimers{display:grid; gap:10px; margin-top:6px; font-size:14px; color:var(--muted); max-width:65ch}
+      .disclaimers {
+        display: grid;
+        gap: 10px;
+        margin-top: 6px;
+        font-size: 14px;
+        color: var(--muted);
+        max-width: 65ch;
+      }
 
-    /* ---------- PHONE ---------- */
-    .phone-wrap{display:flex;justify-content:center;align-items:center; perspective:1200px;}
-    .phone{
-      width:min(420px,92vw); aspect-ratio:9/19.5; border:12px solid #0b0f24; border-radius:40px; overflow:hidden;
-      box-shadow: 0 40px 80px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.05) inset;
-      position:relative; transform: rotateX(6deg) rotateY(-8deg);
-      transition: transform .6s ease;
-      background:#000;
-    }
-    .phone:hover{ transform: rotateX(0) rotateY(0); }
-    .notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:44%;height:24px;background:#0b0f24;border-bottom-left-radius:14px;border-bottom-right-radius:14px; z-index:2;}
-    .screen{position:absolute; inset:0;}
-    .screen video{width:100%;height:100%;object-fit:cover;display:block}
+      /* ---------- PHONE ---------- */
+      .phone-wrap {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        perspective: 1200px;
+      }
+      .phone {
+        width: min(420px, 92vw);
+        aspect-ratio: 9/19.5;
+        border: 12px solid #0b0f24;
+        border-radius: 40px;
+        overflow: hidden;
+        box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6),
+          0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+        position: relative;
+        transform: rotateX(6deg) rotateY(-8deg);
+        transition: transform 0.6s ease;
+        background: #000;
+      }
+      .phone:hover {
+        transform: rotateX(0) rotateY(0);
+      }
+      .notch {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 44%;
+        height: 24px;
+        background: #0b0f24;
+        border-bottom-left-radius: 14px;
+        border-bottom-right-radius: 14px;
+        z-index: 2;
+      }
+      .screen {
+        position: absolute;
+        inset: 0;
+      }
+      .screen video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
 
-    /* ---------- SECTIONS ---------- */
-    .section{padding:56px 0}
-    .section h2{text-align:center;font-size:clamp(24px,4vw,36px);margin:0 0 18px;}
-    .section p.lead{text-align:center;color:var(--text-dim);margin:0 auto 24px;max-width:70ch}
+      /* ---------- SECTIONS ---------- */
+      .section {
+        padding: 56px 0;
+      }
+      .section h2 {
+        text-align: center;
+        font-size: clamp(24px, 4vw, 36px);
+        margin: 0 0 18px;
+      }
+      .section p.lead {
+        text-align: center;
+        color: var(--text-dim);
+        margin: 0 auto 24px;
+        max-width: 70ch;
+      }
 
-    /* Features grid */
-    .features{display:grid;grid-template-columns:repeat(12,1fr);gap:18px;}
-    .feature{
-      grid-column: span 6;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)),
-        linear-gradient(135deg,var(--card),var(--card-2));
-      padding:22px;border-radius:var(--radius-2xl);box-shadow:var(--shadow-sm);
-      border:var(--border);
-      transition: transform .2s ease, box-shadow .2s ease;
-    }
-    .feature:hover{ transform: translateY(-4px); box-shadow:var(--shadow-lg); }
-    .feature h3{margin:6px 0 8px;font-size:20px;}
-    .feature p{margin:0;color:var(--muted);}
-    .feature .tag{
-      display:inline-block; font-size:11px; letter-spacing:.3px; color:#fff;
-      background:linear-gradient(90deg, var(--primary), var(--accent)); padding:6px 10px; border-radius:999px; margin-bottom:10px; font-weight:700;
-    }
-    @media (max-width: 900px){
-      .feature{ grid-column: span 12; }
-    }
+      /* Features grid */
+      .features {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 18px;
+      }
+      .feature {
+        grid-column: span 6;
+        background: linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.06),
+            rgba(255, 255, 255, 0.02)
+          ),
+          linear-gradient(135deg, var(--card), var(--card-2));
+        padding: 22px;
+        border-radius: var(--radius-2xl);
+        box-shadow: var(--shadow-sm);
+        border: var(--border);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+      .feature:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-lg);
+      }
+      .feature h3 {
+        margin: 6px 0 8px;
+        font-size: 20px;
+      }
+      .feature p {
+        margin: 0;
+        color: var(--muted);
+      }
+      .feature .tag {
+        display: inline-block;
+        font-size: 11px;
+        letter-spacing: 0.3px;
+        color: #fff;
+        background: linear-gradient(90deg, var(--primary), var(--accent));
+        padding: 6px 10px;
+        border-radius: 999px;
+        margin-bottom: 10px;
+        font-weight: 700;
+      }
+      @media (max-width: 900px) {
+        .feature {
+          grid-column: span 12;
+        }
+      }
 
-    /* ---------- SURVEY (responsive iframe wrapper) ---------- */
-    .frame-wrap{
-      position:relative; width:100%; max-width:100%;
-      border-radius:var(--radius-xl); overflow:hidden; box-shadow:var(--shadow-sm); border:var(--border);
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-    }
-    .frame-inner{
-      position:relative; width:100%;
-      /* Use fixed height with responsive cap so long forms still show well */
-      height: min(80vh, 900px);
-    }
-    .frame-inner iframe{
-      position:absolute; inset:0; width:100%; height:100%; border:0;
-    }
+      /* ---------- SURVEY (responsive iframe wrapper) ---------- */
+      .frame-wrap {
+        position: relative;
+        width: 100%;
+        max-width: 100%;
+        border-radius: var(--radius-xl);
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
+        border: var(--border);
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.06),
+          rgba(255, 255, 255, 0.02)
+        );
+      }
+      .frame-inner {
+        position: relative;
+        width: 100%;
+        /* Use fixed height with responsive cap so long forms still show well */
+        height: min(80vh, 900px);
+      }
+      .frame-inner iframe {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+      }
 
-    /* ---------- HIRE ---------- */
-    .hire{
-      padding:56px 22px;text-align:center;
-      background:
-        radial-gradient(600px 300px at 15% 0%, rgba(108,92,231,.25), transparent 60%),
-        radial-gradient(600px 300px at 85% 0%, rgba(34,211,238,.25), transparent 60%),
-        linear-gradient(135deg, rgba(108,92,231,.18), rgba(34,211,238,.18));
-      border-radius:var(--radius-2xl); margin-top:10px; border:var(--border);
-    }
-    .hire h2{margin:0 0 10px;}
-    .hire p{margin:0 auto 18px;color:var(--text-dim);max-width:70ch}
-    .hire .cta{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:10px}
-    .hire a{
-      display:inline-block;padding:14px 20px;background:var(--primary);color:#fff;border-radius:12px;font-weight:800;transition:.25s;border:1px solid rgba(255,255,255,.12);
-    }
-    .hire a:hover{ background:var(--accent); transform: translateY(-2px); }
+      /* ---------- HIRE ---------- */
+      .hire {
+        padding: 56px 22px;
+        text-align: center;
+        background: radial-gradient(
+            600px 300px at 15% 0%,
+            rgba(108, 92, 231, 0.25),
+            transparent 60%
+          ),
+          radial-gradient(
+            600px 300px at 85% 0%,
+            rgba(34, 211, 238, 0.25),
+            transparent 60%
+          ),
+          linear-gradient(
+            135deg,
+            rgba(108, 92, 231, 0.18),
+            rgba(34, 211, 238, 0.18)
+          );
+        border-radius: var(--radius-2xl);
+        margin-top: 10px;
+        border: var(--border);
+      }
+      .hire h2 {
+        margin: 0 0 10px;
+      }
+      .hire p {
+        margin: 0 auto 18px;
+        color: var(--text-dim);
+        max-width: 70ch;
+      }
+      .hire .cta {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 10px;
+      }
+      .hire a {
+        display: inline-block;
+        padding: 14px 20px;
+        background: var(--primary);
+        color: #fff;
+        border-radius: 12px;
+        font-weight: 800;
+        transition: 0.25s;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+      }
+      .hire a:hover {
+        background: var(--accent);
+        transform: translateY(-2px);
+      }
 
-    /* ---------- FOOTER ---------- */
-    .footer{
-      margin-top:24px;padding:26px;border-top:var(--border);
-      display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;color:var(--muted); font-size:14px;
-    }
+      /* ---------- FOOTER ---------- */
+      .footer {
+        margin-top: 24px;
+        padding: 26px;
+        border-top: var(--border);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: space-between;
+        color: var(--muted);
+        font-size: 14px;
+      }
 
-    /* ---------- RESPONSIVE ---------- */
-    @media (max-width: 980px){
-      .hero{ grid-template-columns: 1fr; text-align:center; gap:28px; }
-      .actions{ justify-content:center; }
-      .disclaimers{ margin-left:auto; margin-right:auto; }
-      .phone{ transform: none; }
-    }
-    @media (max-width: 640px){
-      .container{ padding:18px; }
-      .logo img{ width:52px;height:52px; }
-      .badge{ width:100%; justify-content:center; }
-    }
-  </style>
-</head>
-<body>
-  <!-- Animated ambient blobs -->
-  <div class="orbs" aria-hidden="true">
-    <div class="orb one"></div>
-    <div class="orb two"></div>
-    <div class="orb three"></div>
-  </div>
-
-  <!-- HEADER -->
-  <header>
-    <div class="container nav">
-      <div class="logo">
-        <img src="icon.png" alt="Expenso icon"/>
-        <span>Expenso</span>
-      </div>
-      <div class="top-cta">
-        <span class="pill"><span class="dot"></span> Demo Build • Android APK</span>
-      </div>
+      /* ---------- RESPONSIVE ---------- */
+      @media (max-width: 980px) {
+        .hero {
+          grid-template-columns: 1fr;
+          text-align: center;
+          gap: 28px;
+        }
+        .actions {
+          justify-content: center;
+        }
+        .disclaimers {
+          margin-left: auto;
+          margin-right: auto;
+        }
+        .phone {
+          transform: none;
+        }
+      }
+      @media (max-width: 640px) {
+        .container {
+          padding: 18px;
+        }
+        .logo img {
+          width: 52px;
+          height: 52px;
+        }
+        .badge {
+          width: 100%;
+          justify-content: center;
+        }
+      }
+      /* ---------- SOCIAL PROOF ---------- */
+      .socialproof {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 6px;
+      }
+      .as-seen {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        border: var(--border);
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.06),
+          rgba(255, 255, 255, 0.02)
+        );
+        color: var(--text-dim);
+        font-weight: 700;
+        font-size: 12px;
+        letter-spacing: 0.3px;
+      }
+      .as-seen .spark {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--accent);
+        box-shadow: 0 0 8px var(--accent);
+      }
+      .badge-embed {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 10px;
+        border-radius: 12px;
+        border: var(--border);
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.06),
+          rgba(255, 255, 255, 0.02)
+        );
+        box-shadow: var(--shadow-sm);
+        transition: transform 0.2s ease, box-shadow 0.2s ease,
+          background 0.2s ease;
+      }
+      .badge-embed:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-lg);
+      }
+      .badge-embed img {
+        height: 44px;
+        display: block;
+        width: auto;
+        filter: saturate(0.95) contrast(1.05);
+      }
+      @media (max-width: 640px) {
+        .socialproof {
+          justify-content: center;
+        }
+        .badge-embed img {
+          height: 40px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Animated ambient blobs -->
+    <div class="orbs" aria-hidden="true">
+      <div class="orb one"></div>
+      <div class="orb two"></div>
+      <div class="orb three"></div>
     </div>
-  </header>
 
-  <main class="container">
-    <!-- HERO -->
-    <section class="hero" id="home">
-      <div>
-        <span class="eyebrow"><span class="spark"></span> AI-enhanced personal finance</span>
-        <h1 class="headline">Meet Expenso: Your Smart Money Sidekick</h1>
-        <p class="sub">Track expenses with AI receipt scanning, plan budgets, never miss a bill, and monitor investments — all in one sleek app.</p>
-
-        <!-- ✅ Download kept exactly as provided -->
-        <div class="actions">
-          <a class="badge" href="Expenso%3A%20Your%20Smart%20Money%20Sidekick.apk" download="Expenso-Your-Smart-Money-Sidekick.apk" aria-label="Download Expenso Android APK">
-            <img src="icon.png" alt="Expenso APK"/>
-            Download Android APK
-          </a>
+    <!-- HEADER -->
+    <header>
+      <div class="container nav">
+        <div class="logo">
+          <img src="icon.png" alt="Expenso icon" />
+          <span>Expenso</span>
         </div>
-
-        <div class="disclaimers">
-          <div>⚠️ <strong>Disclaimer:</strong> This is a test project I built solo with zero budget. I couldn’t publish on the App Store because I can’t afford the Apple Developer plan. The Android APK is provided for demo purposes only.</div>
-          <div>Built by <strong>Arun K Nair</strong> — a personal pet project. Due to no funding, this isn’t meant for large-scale usage unless a paid Supabase plan is used. With paid infrastructure, this can be made commercially available.</div>
+        <div class="top-cta">
+          <span class="pill"
+            ><span class="dot"></span> Demo Build • Android APK</span
+          >
         </div>
       </div>
+    </header>
 
-      <!-- ✅ Phone preview kept (structure & video source unchanged) -->
-      <div class="phone-wrap">
-        <div class="phone">
-          <div class="notch"></div>
-          <div class="screen">
-            <video id="demoVideo" autoplay loop muted playsinline>
-              <source src="demo.mp4" type="video/mp4"/>
-            </video>
+    <main class="container">
+      <!-- HERO -->
+      <section class="hero" id="home">
+        <div>
+          <span class="eyebrow"
+            ><span class="spark"></span> AI-enhanced personal finance</span
+          >
+          <h1 class="headline">Meet Expenso: Your Smart Money Sidekick</h1>
+          <p class="sub">
+            Track expenses with AI receipt scanning, plan budgets, never miss a
+            bill, and monitor investments — all in one sleek app.
+          </p>
+
+          <!-- ✅ Download kept exactly as provided -->
+          <div class="actions">
+            <a
+              class="badge"
+              href="Expenso%3A%20Your%20Smart%20Money%20Sidekick.apk"
+              download="Expenso-Your-Smart-Money-Sidekick.apk"
+              aria-label="Download Expenso Android APK"
+            >
+              <img src="icon.png" alt="Expenso APK" />
+              Download Android APK
+            </a>
+          </div>
+
+          <!-- Social proof badges -->
+          <div class="socialproof" role="group" aria-label="Social proof">
+            <span class="as-seen"><span class="spark"></span> As seen on</span>
+
+            <a
+              class="badge-embed"
+              href="https://www.producthunt.com/products/expenso-2?embed=true&utm_source=badge-featured&utm_medium=badge&utm_source=badge-expenso&#0045;2"
+              target="_blank"
+              rel="noopener"
+            >
+              <img
+                loading="lazy"
+                src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1006598&theme=dark"
+                alt="Featured on Product Hunt"
+              />
+            </a>
+
+            <a
+              class="badge-embed"
+              href="https://peerlist.io/arunknair/project/expenso--your-smart-money-sidekick"
+              target="_blank"
+              rel="noopener"
+            >
+              <img
+                loading="lazy"
+                src="https://peerlist.io/api/v1/projects/embed/PRJHLKL9EBPJEORRPFL8LJQB86ADRL?showUpvote=false&theme=dark"
+                alt="Project on Peerlist"
+              />
+            </a>
+          </div>
+
+          <div class="disclaimers">
+            <div>
+              ⚠️ <strong>Disclaimer:</strong> This is a test project I built
+              solo with zero budget. I couldn’t publish on the App Store because
+              I can’t afford the Apple Developer plan. The Android APK is
+              provided for demo purposes only.
+            </div>
+            <div>
+              Built by <strong>Arun K Nair</strong> — a personal pet project.
+              Due to no funding, this isn’t meant for large-scale usage unless a
+              paid Supabase plan is used. With paid infrastructure, this can be
+              made commercially available.
+            </div>
           </div>
         </div>
-      </div>
-    </section>
 
-    <!-- SURVEY -->
-    <section class="section" id="survey">
-      <h2>Would you use Expenso if it were paid?</h2>
-      <p class="lead">Your feedback helps decide whether to take Expenso to a production-grade release.</p>
-      <div class="frame-wrap">
-        <div class="frame-inner">
-          <iframe title="Expenso Feedback Form" src="https://docs.google.com/forms/d/e/1FAIpQLSc7vhYPv8takL_xIL3kAyuDMoI-FBCtmqOtSiqTVCjinmp9Tg/viewform?embedded=true">Loading…</iframe>
+        <!-- ✅ Phone preview kept (structure & video source unchanged) -->
+        <div class="phone-wrap">
+          <div class="phone">
+            <div class="notch"></div>
+            <div class="screen">
+              <video id="demoVideo" autoplay loop muted playsinline>
+                <source src="demo.mp4" type="video/mp4" />
+              </video>
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- FEATURES -->
-    <section class="section" id="features">
-      <h2>Everything you need to master your money</h2>
-      <p class="lead">From capturing receipts to forecasting trends — Expenso keeps you in control.</p>
+      <!-- SURVEY -->
+      <section class="section" id="survey">
+        <h2>Would you use Expenso if it were paid?</h2>
+        <p class="lead">
+          Your feedback helps decide whether to take Expenso to a
+          production-grade release.
+        </p>
+        <div class="frame-wrap">
+          <div class="frame-inner">
+            <iframe
+              title="Expenso Feedback Form"
+              src="https://docs.google.com/forms/d/e/1FAIpQLSc7vhYPv8takL_xIL3kAyuDMoI-FBCtmqOtSiqTVCjinmp9Tg/viewform?embedded=true"
+              >Loading…</iframe
+            >
+          </div>
+        </div>
+      </section>
 
-      <div class="features">
-        <article class="feature">
-          <span class="tag">AI</span>
-          <h3>🧾 AI Receipt Scanning</h3>
-          <p>Snap a receipt — Expenso extracts merchant, date, amount, and category automatically.</p>
-        </article>
+      <!-- FEATURES -->
+      <section class="section" id="features">
+        <h2>Everything you need to master your money</h2>
+        <p class="lead">
+          From capturing receipts to forecasting trends — Expenso keeps you in
+          control.
+        </p>
 
-        <article class="feature">
-          <span class="tag">Budgets</span>
-          <h3>📊 Smart Budget Planning</h3>
-          <p>Create budgets with real-time alerts before overspending happens.</p>
-        </article>
+        <div class="features">
+          <article class="feature">
+            <span class="tag">AI</span>
+            <h3>🧾 AI Receipt Scanning</h3>
+            <p>
+              Snap a receipt — Expenso extracts merchant, date, amount, and
+              category automatically.
+            </p>
+          </article>
 
-        <article class="feature">
-          <span class="tag">Reminders</span>
-          <h3>🔔 Bill Reminders</h3>
-          <p>Smart reminders for bills, loans, and subscriptions. Snooze or mark as paid instantly.</p>
-        </article>
+          <article class="feature">
+            <span class="tag">Budgets</span>
+            <h3>📊 Smart Budget Planning</h3>
+            <p>
+              Create budgets with real-time alerts before overspending happens.
+            </p>
+          </article>
 
-        <article class="feature">
-          <span class="tag">Insights</span>
-          <h3>📈 AI Insights</h3>
-          <p>Discover spending patterns with heatmaps, health scores, and money-saving tips.</p>
-        </article>
-      </div>
-    </section>
+          <article class="feature">
+            <span class="tag">Reminders</span>
+            <h3>🔔 Bill Reminders</h3>
+            <p>
+              Smart reminders for bills, loans, and subscriptions. Snooze or
+              mark as paid instantly.
+            </p>
+          </article>
 
-    <!-- HIRE ME -->
-    <section class="hire" id="contact">
-      <h2>💼 Hire Me</h2>
-      <p>If you like what you see in Expenso, I’d love to work with you. Check out my portfolio or connect with me on LinkedIn.</p>
-      <div class="cta">
-        <a href="https://arunknair.netlify.app/" target="_blank" rel="noopener">🌐 Visit My Portfolio</a>
-        <a href="https://www.linkedin.com/in/arunknair-/" target="_blank" rel="noopener">🔗 Connect on LinkedIn</a>
-      </div>
-    </section>
+          <article class="feature">
+            <span class="tag">Insights</span>
+            <h3>📈 AI Insights</h3>
+            <p>
+              Discover spending patterns with heatmaps, health scores, and
+              money-saving tips.
+            </p>
+          </article>
+        </div>
+      </section>
 
-    <!-- FOOTER -->
-    <footer class="footer">
-      <div>© <span id="year"></span> Expenso. Built with ❤️ by Arun K Nair.</div>
-      <div>Privacy-friendly • No trackers on this demo</div>
-    </footer>
-  </main>
+      <!-- HIRE ME -->
+      <section class="hire" id="contact">
+        <h2>💼 Hire Me</h2>
+        <p>
+          If you like what you see in Expenso, I’d love to work with you. Check
+          out my portfolio or connect with me on LinkedIn.
+        </p>
+        <div class="cta">
+          <a
+            href="https://arunknair.netlify.app/"
+            target="_blank"
+            rel="noopener"
+            >🌐 Visit My Portfolio</a
+          >
+          <a
+            href="https://www.linkedin.com/in/arunknair-/"
+            target="_blank"
+            rel="noopener"
+            >🔗 Connect on LinkedIn</a
+          >
+        </div>
+      </section>
 
-  <script>
-    // Current year
-    document.getElementById('year').textContent = new Date().getFullYear();
+      <!-- FOOTER -->
+      <footer class="footer">
+        <div>
+          © <span id="year"></span> Expenso. Built with ❤️ by Arun K Nair.
+        </div>
+        <div>Privacy-friendly • No trackers on this demo</div>
+      </footer>
+    </main>
 
-    // Autoplay fallback for some browsers if needed
-    const v = document.getElementById('demoVideo');
-    if (v) {
-      const tryPlay = () => v.play().catch(()=>{ /* ignore */ });
-      document.addEventListener('visibilitychange', tryPlay, { passive:true });
-      window.addEventListener('focus', tryPlay, { passive:true });
-    }
-  </script>
-</body>
+    <script>
+      // Current year
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      // Autoplay fallback for some browsers if needed
+      const v = document.getElementById("demoVideo");
+      if (v) {
+        const tryPlay = () =>
+          v.play().catch(() => {
+            /* ignore */
+          });
+        document.addEventListener("visibilitychange", tryPlay, {
+          passive: true,
+        });
+        window.addEventListener("focus", tryPlay, { passive: true });
+      }
+    </script>
+  </body>
 </html>
