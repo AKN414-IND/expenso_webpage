@@ -6,59 +6,117 @@
     <title>Expenso — Your Smart Money Sidekick</title>
     <meta
       name="description"
-      content="Expenso is an AI-enhanced personal finance app with receipt scanning, budgeting, bill reminders, investment tracking, and smart insights."
+      content="Expenso is an AI-enhanced personal finance app featuring AI receipt scanning, real-time investment tracking, budget planning, bill reminders, subscription detection, and SMS bank importing."
     />
-    <meta name="theme-color" content="#6c5ce7" />
+    <meta name="theme-color" content="#6366f1" />
     <meta name="author" content="Arun K Nair" />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <style>
-      /* ---------- THEME ---------- */
+      /* ---------- THEME SYSTEM ---------- */
       :root {
-        --bg: #070b18;
-        --bg-2: #0f1429;
-        --card: #111633;
-        --card-2: #171d3f;
-        --text: #eef1ff;
-        --text-dim: #cdd5ff;
-        --muted: #9aa3c7;
-        --primary: #6c5ce7;
-        --accent: #22d3ee;
-        --success: #10b981;
-        --border: 1px solid rgba(255, 255, 255, 0.08);
-        --shadow-lg: 0 30px 80px rgba(0, 0, 0, 0.5);
-        --shadow-sm: 0 10px 30px rgba(0, 0, 0, 0.35);
-        --radius-2xl: 28px;
-        --radius-xl: 20px;
-        --radius-lg: 14px;
-        --maxw: 1200px;
+        --bg-dark: #030712;
+        --bg-card: rgba(17, 24, 39, 0.45);
+        --bg-card-hover: rgba(31, 41, 55, 0.65);
+        
+        --border-color: rgba(255, 255, 255, 0.06);
+        --border-hover: rgba(255, 255, 255, 0.12);
+        
+        --text-primary: #f3f4f6;
+        --text-secondary: #9ca3af;
+        --text-muted: #6b7280;
+        
+        --primary: #6366f1; /* Indigo 500 */
+        --primary-rgb: 99, 102, 241;
+        --accent: #06b6d4; /* Cyan 500 */
+        --accent-rgb: 6, 182, 212;
+        --success: #10b981; /* Emerald 500 */
+        --success-rgb: 16, 185, 129;
+        --purple: #a855f7; /* Purple 500 */
+        --purple-rgb: 168, 85, 247;
+        --warning: #f59e0b; /* Amber 500 */
+        --warning-rgb: 245, 158, 11;
+
+        --font-heading: 'Outfit', sans-serif;
+        --font-body: 'Plus Jakarta Sans', sans-serif;
+
+        --radius-full: 9999px;
+        --radius-2xl: 24px;
+        --radius-xl: 16px;
+        --radius-lg: 12px;
+        --radius-md: 8px;
+
+        --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.1);
+        --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.4);
+        --max-w: 1200px;
+        
+        --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       }
+
+      /* ---------- GENERAL RESET ---------- */
       * {
         box-sizing: border-box;
-      }
-      html,
-      body {
-        height: 100%;
-      }
-      body {
         margin: 0;
-        color: var(--text);
-        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
-          Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-        line-height: 1.6;
-        background: radial-gradient(
-            1200px 800px at 10% -10%,
-            #1b1f3f 0%,
-            transparent 60%
-          ),
-          radial-gradient(800px 500px at 90% 10%, #0d233b 0%, transparent 60%),
-          linear-gradient(135deg, var(--bg) 0%, var(--bg-2) 100%);
-        overflow-x: hidden;
+        padding: 0;
       }
+      
+      html {
+        scroll-behavior: smooth;
+        background-color: var(--bg-dark);
+      }
+
+      body {
+        color: var(--text-primary);
+        font-family: var(--font-body);
+        line-height: 1.6;
+        overflow-x: hidden;
+        background: 
+          radial-gradient(1200px 900px at 15% -10%, rgba(99, 102, 241, 0.15) 0%, transparent 65%),
+          radial-gradient(900px 600px at 85% 15%, rgba(6, 182, 212, 0.12) 0%, transparent 60%),
+          radial-gradient(1000px 800px at 50% 60%, rgba(168, 85, 247, 0.08) 0%, transparent 65%),
+          linear-gradient(180deg, #030712 0%, #080717 50%, #030712 100%);
+      }
+
       a {
         color: inherit;
         text-decoration: none;
       }
 
-      /* ---------- DECOR ---------- */
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--bg-dark);
+      }
+      ::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: var(--radius-full);
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      /* ---------- GLASS DESIGN ---------- */
+      .glass {
+        background: var(--bg-card);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-xl);
+        transition: var(--transition-smooth);
+      }
+      
+      .glass:hover {
+        background: var(--bg-card-hover);
+        border-color: var(--border-hover);
+      }
+
+      /* ---------- ANIMATED ORBS ---------- */
       .orbs {
         position: fixed;
         inset: 0;
@@ -68,239 +126,444 @@
       }
       .orb {
         position: absolute;
-        filter: blur(60px);
-        opacity: 0.25;
+        filter: blur(120px);
+        opacity: 0.18;
         border-radius: 50%;
-        animation: float 18s ease-in-out infinite;
+        animation: float 22s ease-in-out infinite;
       }
       .orb.one {
-        width: 380px;
-        height: 380px;
-        left: -80px;
-        top: -60px;
-        background: #6c5ce7;
+        width: 500px;
+        height: 500px;
+        left: -100px;
+        top: -100px;
+        background: var(--primary);
       }
       .orb.two {
-        width: 420px;
-        height: 420px;
-        right: -120px;
-        top: 120px;
-        background: #22d3ee;
-        animation-delay: -4s;
+        width: 550px;
+        height: 550px;
+        right: -150px;
+        top: 200px;
+        background: var(--accent);
+        animation-delay: -5s;
       }
       .orb.three {
-        width: 360px;
-        height: 360px;
-        left: 20%;
-        bottom: -120px;
-        background: #10b981;
-        animation-delay: -8s;
+        width: 450px;
+        height: 450px;
+        left: 25%;
+        bottom: -150px;
+        background: var(--purple);
+        animation-delay: -10s;
       }
+
       @keyframes float {
-        0%,
-        100% {
+        0%, 100% {
           transform: translateY(0) translateX(0) scale(1);
         }
         50% {
-          transform: translateY(-20px) translateX(10px) scale(1.03);
+          transform: translateY(-40px) translateX(20px) scale(1.05);
         }
       }
+      
       @media (prefers-reduced-motion: reduce) {
         .orb {
           animation: none;
         }
       }
 
-      /* ---------- LAYOUT ---------- */
+      /* ---------- LAYOUT CONTAINER ---------- */
       .container {
-        max-width: var(--maxw);
+        max-width: var(--max-w);
         margin: 0 auto;
-        padding: 24px;
+        padding: 0 24px;
         position: relative;
         z-index: 1;
       }
+
+      /* ---------- HEADER & NAV ---------- */
       header {
         position: sticky;
         top: 0;
-        z-index: 50;
-        backdrop-filter: blur(16px);
-        background: linear-gradient(
-          180deg,
-          rgba(10, 12, 26, 0.75),
-          rgba(10, 12, 26, 0.35)
-        );
-        border-bottom: var(--border);
+        z-index: 100;
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        background: rgba(3, 7, 18, 0.7);
+        border-bottom: 1px solid var(--border-color);
+        transition: var(--transition-smooth);
       }
+      
       .nav {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 16px;
+        height: 72px;
       }
+      
       .logo {
         display: flex;
         align-items: center;
         gap: 12px;
+        font-family: var(--font-heading);
       }
+      
       .logo img {
-        width: 56px;
-        height: 56px;
-        border-radius: 8px;
+        width: 42px;
+        height: 42px;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
       }
+      
       .logo span {
-        font-weight: 900;
-        font-size: 20px;
-        letter-spacing: 0.3px;
+        font-weight: 800;
+        font-size: 22px;
+        letter-spacing: -0.5px;
+        background: linear-gradient(to right, #ffffff, #c7d2fe);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
       }
-      .top-cta {
-        display: flex;
-        gap: 12px;
-        align-items: center;
-        flex-wrap: wrap;
-      }
+      
       .pill {
         display: inline-flex;
         align-items: center;
-        gap: 10px;
-        padding: 10px 14px;
-        border-radius: 999px;
-        background: rgba(255, 255, 255, 0.06);
-        border: var(--border);
+        gap: 8px;
+        padding: 8px 16px;
+        border-radius: var(--radius-full);
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
         font-weight: 600;
-        color: var(--text-dim);
+        font-size: 13px;
+        color: var(--text-primary);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        transition: var(--transition-smooth);
       }
+
       .pill .dot {
         width: 8px;
         height: 8px;
         border-radius: 50%;
         background: var(--success);
         box-shadow: 0 0 8px var(--success);
+        animation: pulse-green 2s infinite;
+      }
+
+      @keyframes pulse-green {
+        0%, 100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.5;
+          transform: scale(0.85);
+        }
       }
 
       /* ---------- HERO ---------- */
       .hero {
         display: grid;
-        grid-template-columns: 1.05fr 0.95fr;
-        gap: 48px;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 60px;
         align-items: center;
-        padding: 56px 0 10px;
+        padding: 90px 0 60px;
       }
+      
+      .hero-content {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
       .eyebrow {
         display: inline-flex;
         gap: 8px;
         align-items: center;
-        background: linear-gradient(
-          180deg,
-          rgba(255, 255, 255, 0.06),
-          rgba(255, 255, 255, 0.02)
-        );
-        border: var(--border);
-        border-radius: 999px;
-        padding: 8px 12px;
-        color: var(--text-dim);
+        background: rgba(99, 102, 241, 0.1);
+        border: 1px solid rgba(99, 102, 241, 0.2);
+        border-radius: var(--radius-full);
+        padding: 6px 14px;
+        color: #a5b4fc;
         font-weight: 600;
-        font-size: 12px;
+        font-size: 13px;
+        letter-spacing: 0.3px;
+        margin-bottom: 24px;
+        box-shadow: 0 4px 12px rgba(99, 102, 241, 0.05);
       }
+      
       .eyebrow .spark {
-        width: 8px;
-        height: 8px;
+        width: 6px;
+        height: 6px;
         border-radius: 50%;
         background: var(--accent);
-        box-shadow: 0 0 10px var(--accent);
+        box-shadow: 0 0 8px var(--accent);
       }
+      
       .headline {
-        font-size: clamp(32px, 6vw, 56px);
-        line-height: 1.05;
-        margin: 14px 0 12px;
+        font-family: var(--font-heading);
+        font-size: clamp(38px, 5.5vw, 56px);
+        line-height: 1.1;
+        margin-bottom: 20px;
         font-weight: 900;
-        letter-spacing: 0.2px;
+        letter-spacing: -1px;
+        background: linear-gradient(135deg, #ffffff 30%, #c7d2fe 70%, #818cf8 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
       }
+      
       .sub {
-        font-size: clamp(16px, 2.6vw, 20px);
-        color: var(--text-dim);
-        max-width: 60ch;
+        font-size: clamp(16px, 2vw, 19px);
+        color: var(--text-secondary);
+        margin-bottom: 32px;
+        max-width: 520px;
+        line-height: 1.55;
       }
+
+      /* Premium Download Button */
       .actions {
-        margin: 26px 0 18px;
         display: flex;
-        gap: 14px;
+        gap: 16px;
         flex-wrap: wrap;
+        margin-bottom: 32px;
+        width: 100%;
       }
-      .badge {
+      
+      .btn-download {
         display: inline-flex;
         align-items: center;
-        padding: 14px 18px;
-        background: linear-gradient(
-          180deg,
-          rgba(255, 255, 255, 0.08),
-          rgba(255, 255, 255, 0.04)
-        );
-        border: var(--border);
-        border-radius: 14px;
-        box-shadow: var(--shadow-sm);
-        transition: transform 0.2s ease, box-shadow 0.2s ease,
-          background 0.2s ease;
+        padding: 16px 28px;
+        border-radius: var(--radius-xl);
+        background: linear-gradient(135deg, rgba(99, 102, 241, 0.9) 0%, rgba(79, 70, 229, 0.9) 100%);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        color: #ffffff;
+        font-weight: 700;
+        box-shadow: 0 10px 25px rgba(99, 102, 241, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        transition: var(--transition-smooth);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .btn-download::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+        transform: translateX(-100%);
+        transition: transform 0.6s ease;
+      }
+
+      .btn-download:hover::before {
+        transform: translateX(100%);
+      }
+
+      .btn-download:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 35px rgba(99, 102, 241, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        background: linear-gradient(135deg, rgba(99, 102, 241, 1) 0%, rgba(79, 70, 229, 1) 100%);
+      }
+
+      .btn-download:active {
+        transform: translateY(-1px);
+      }
+
+      .btn-download img {
+        width: 44px;
+        height: 44px;
+        border-radius: var(--radius-md);
+        margin-right: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        background: rgba(255, 255, 255, 0.05);
+      }
+      
+      .btn-download-text {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .btn-download-text .subtitle {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: rgba(255, 255, 255, 0.7);
+        font-weight: 500;
+        margin-bottom: 2px;
+      }
+      
+      .btn-download-text .title {
+        font-size: 18px;
+        font-family: var(--font-heading);
         font-weight: 800;
+        letter-spacing: -0.2px;
       }
-      .badge:hover {
+
+      /* Social Proof / Badges */
+      .socialproof {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        flex-wrap: wrap;
+        margin-bottom: 40px;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        padding-top: 24px;
+        width: 100%;
+      }
+      
+      .as-seen {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 700;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--text-muted);
+      }
+      
+      .as-seen .spark {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--accent);
+        box-shadow: 0 0 8px var(--accent);
+      }
+      
+      .badge-embed {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 6px;
+        border-radius: var(--radius-lg);
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        box-shadow: var(--shadow-sm);
+        transition: var(--transition-smooth);
+      }
+      
+      .badge-embed:hover {
         transform: translateY(-2px);
-        box-shadow: var(--shadow-lg);
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(255, 255, 255, 0.12);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
       }
-      .badge img {
-        width: 42px;
-        height: 42px;
-        border-radius: 6px;
-        margin-right: 10px;
-      }
-
-      .disclaimers {
-        display: grid;
-        gap: 10px;
-        margin-top: 6px;
-        font-size: 14px;
-        color: var(--muted);
-        max-width: 65ch;
+      
+      .badge-embed img {
+        height: 38px;
+        display: block;
+        width: auto;
       }
 
-      /* ---------- PHONE ---------- */
+      /* Disclaimers Info Card */
+      .disclaimers-card {
+        padding: 20px;
+        border-radius: var(--radius-xl);
+        background: rgba(245, 158, 11, 0.03);
+        border: 1px solid rgba(245, 158, 11, 0.15);
+        max-width: 560px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      
+      .disclaimer-item {
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+        font-size: 13.5px;
+        color: var(--text-secondary);
+        line-height: 1.5;
+      }
+      
+      .disclaimer-icon {
+        color: var(--warning);
+        flex-shrink: 0;
+        margin-top: 2px;
+      }
+      
+      .disclaimer-item strong {
+        color: var(--text-primary);
+        font-weight: 600;
+      }
+
+      /* ---------- PHONE DISPLAY (3D Interactive Mockup) ---------- */
       .phone-wrap {
         display: flex;
         justify-content: center;
         align-items: center;
-        perspective: 1200px;
-      }
-      .phone {
-        width: min(420px, 92vw);
-        aspect-ratio: 9/19.5;
-        border: 12px solid #0b0f24;
-        border-radius: 40px;
-        overflow: hidden;
-        box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6),
-          0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+        perspective: 1500px;
         position: relative;
-        transform: rotateX(6deg) rotateY(-8deg);
-        transition: transform 0.6s ease;
-        background: #000;
+        padding: 20px 0;
       }
-      .phone:hover {
-        transform: rotateX(0) rotateY(0);
+      
+      .phone-glow-bg {
+        position: absolute;
+        width: 320px;
+        height: 520px;
+        background: radial-gradient(circle, rgba(99, 102, 241, 0.25) 0%, transparent 70%);
+        filter: blur(40px);
+        z-index: 0;
+        pointer-events: none;
       }
+
+      .phone {
+        width: min(340px, 85vw);
+        aspect-ratio: 9/19.5;
+        border: 11px solid #111425;
+        border-radius: 44px;
+        overflow: hidden;
+        box-shadow: 
+          0 25px 60px rgba(0, 0, 0, 0.65),
+          0 0 0 1px rgba(255, 255, 255, 0.08) inset,
+          0 0 25px rgba(99, 102, 241, 0.15);
+        position: relative;
+        background: #03040b;
+        z-index: 1;
+        transform-style: preserve-3d;
+        transition: transform 0.15s ease-out; /* Smooth JS tracking */
+      }
+      
+      /* Reflection overlay */
+      .phone::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0) 100%);
+        pointer-events: none;
+        z-index: 4;
+      }
+
       .notch {
         position: absolute;
         top: 0;
         left: 50%;
         transform: translateX(-50%);
-        width: 44%;
-        height: 24px;
-        background: #0b0f24;
-        border-bottom-left-radius: 14px;
-        border-bottom-right-radius: 14px;
-        z-index: 2;
+        width: 130px;
+        height: 25px;
+        background: #111425;
+        border-bottom-left-radius: 16px;
+        border-bottom-right-radius: 16px;
+        z-index: 5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
+      
+      .notch::before {
+        content: '';
+        width: 45px;
+        height: 4px;
+        background: #272c47;
+        border-radius: var(--radius-full);
+        margin-bottom: 2px;
+      }
+      
       .screen {
         position: absolute;
         inset: 0;
+        z-index: 2;
+        border-radius: 34px;
+        overflow: hidden;
       }
+      
       .screen video {
         width: 100%;
         height: 100%;
@@ -308,92 +571,188 @@
         display: block;
       }
 
-      /* ---------- SECTIONS ---------- */
+      /* ---------- SECTIONS GENERAL ---------- */
       .section {
-        padding: 56px 0;
+        padding: 90px 0;
+        position: relative;
+        z-index: 10;
       }
-      .section h2 {
+      
+      .section-header {
         text-align: center;
-        font-size: clamp(24px, 4vw, 36px);
-        margin: 0 0 18px;
+        max-width: 680px;
+        margin: 0 auto 56px;
       }
-      .section p.lead {
-        text-align: center;
-        color: var(--text-dim);
-        margin: 0 auto 24px;
-        max-width: 70ch;
+      
+      .section-header h2 {
+        font-family: var(--font-heading);
+        font-size: clamp(28px, 4.5vw, 42px);
+        font-weight: 800;
+        letter-spacing: -0.5px;
+        margin-bottom: 16px;
+        background: linear-gradient(to right, #ffffff, #e0e7ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      
+      .section-header p.lead {
+        font-size: clamp(15px, 2vw, 17px);
+        color: var(--text-secondary);
+        line-height: 1.6;
       }
 
-      /* Features grid */
-      .features {
+      /* ---------- BENTO FEATURES GRID ---------- */
+      .bento-grid {
         display: grid;
         grid-template-columns: repeat(12, 1fr);
-        gap: 18px;
+        gap: 20px;
+        margin-top: 10px;
       }
-      .feature {
-        grid-column: span 6;
-        background: linear-gradient(
-            180deg,
-            rgba(255, 255, 255, 0.06),
-            rgba(255, 255, 255, 0.02)
-          ),
-          linear-gradient(135deg, var(--card), var(--card-2));
-        padding: 22px;
+      
+      .bento-card {
+        grid-column: span 4;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        padding: 30px;
         border-radius: var(--radius-2xl);
-        box-shadow: var(--shadow-sm);
-        border: var(--border);
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-      }
-      .feature:hover {
-        transform: translateY(-4px);
-        box-shadow: var(--shadow-lg);
-      }
-      .feature h3 {
-        margin: 6px 0 8px;
-        font-size: 20px;
-      }
-      .feature p {
-        margin: 0;
-        color: var(--muted);
-      }
-      .feature .tag {
-        display: inline-block;
-        font-size: 11px;
-        letter-spacing: 0.3px;
-        color: #fff;
-        background: linear-gradient(90deg, var(--primary), var(--accent));
-        padding: 6px 10px;
-        border-radius: 999px;
-        margin-bottom: 10px;
-        font-weight: 700;
-      }
-      @media (max-width: 900px) {
-        .feature {
-          grid-column: span 12;
-        }
-      }
-
-      /* ---------- SURVEY (responsive iframe wrapper) ---------- */
-      .frame-wrap {
         position: relative;
-        width: 100%;
-        max-width: 100%;
-        border-radius: var(--radius-xl);
         overflow: hidden;
         box-shadow: var(--shadow-sm);
-        border: var(--border);
-        background: linear-gradient(
-          180deg,
-          rgba(255, 255, 255, 0.06),
-          rgba(255, 255, 255, 0.02)
-        );
       }
+      
+      .bento-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+      }
+
+      .bento-card.large-row {
+        grid-column: span 6;
+      }
+      
+      /* Card-specific accent glows */
+      .bento-card::before {
+        content: '';
+        position: absolute;
+        top: -100px;
+        left: -100px;
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        filter: blur(60px);
+        opacity: 0.15;
+        z-index: 0;
+        pointer-events: none;
+        transition: var(--transition-smooth);
+      }
+      
+      .bento-card.accent-purple::before { background: var(--purple); }
+      .bento-card.accent-indigo::before { background: var(--primary); }
+      .bento-card.accent-cyan::before { background: var(--accent); }
+      .bento-card.accent-emerald::before { background: var(--success); }
+      .bento-card.accent-warning::before { background: var(--warning); }
+      
+      .bento-card:hover::before {
+        transform: scale(1.4);
+        opacity: 0.25;
+      }
+
+      .card-icon-wrap {
+        position: relative;
+        z-index: 1;
+        width: 52px;
+        height: 52px;
+        border-radius: var(--radius-lg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 24px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      
+      .accent-purple .card-icon-wrap { background: rgba(168, 85, 247, 0.08); color: #d8b4fe; border-color: rgba(168, 85, 247, 0.15); }
+      .accent-indigo .card-icon-wrap { background: rgba(99, 102, 241, 0.08); color: #c7d2fe; border-color: rgba(99, 102, 241, 0.15); }
+      .accent-cyan .card-icon-wrap { background: rgba(6, 182, 212, 0.08); color: #a5f3fc; border-color: rgba(6, 182, 212, 0.15); }
+      .accent-emerald .card-icon-wrap { background: rgba(16, 185, 129, 0.08); color: #a7f3d0; border-color: rgba(16, 185, 129, 0.15); }
+      .accent-warning .card-icon-wrap { background: rgba(245, 158, 11, 0.08); color: #fde68a; border-color: rgba(245, 158, 11, 0.15); }
+      
+      .card-tag {
+        position: relative;
+        z-index: 1;
+        align-self: flex-start;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        padding: 4px 10px;
+        border-radius: var(--radius-full);
+        margin-bottom: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
+      
+      .accent-purple .card-tag { color: #d8b4fe; background: rgba(168, 85, 247, 0.12); }
+      .accent-indigo .card-tag { color: #c7d2fe; background: rgba(99, 102, 241, 0.12); }
+      .accent-cyan .card-tag { color: #a5f3fc; background: rgba(6, 182, 212, 0.12); }
+      .accent-emerald .card-tag { color: #a7f3d0; background: rgba(16, 185, 129, 0.12); }
+      .accent-warning .card-tag { color: #fde68a; background: rgba(245, 158, 11, 0.12); }
+
+      .bento-card h3 {
+        position: relative;
+        z-index: 1;
+        font-family: var(--font-heading);
+        font-size: 21px;
+        font-weight: 700;
+        margin-bottom: 8px;
+        letter-spacing: -0.3px;
+        color: #ffffff;
+      }
+      
+      .bento-card p {
+        position: relative;
+        z-index: 1;
+        font-size: 14.5px;
+        color: var(--text-secondary);
+        line-height: 1.5;
+      }
+
+      /* Interactive element styling in Bento Cards */
+      .bento-visual {
+        margin-top: 16px;
+        padding-top: 16px;
+        border-top: 1px solid rgba(255, 255, 255, 0.04);
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+      
+      .bento-badge {
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--text-muted);
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        padding: 3px 8px;
+        border-radius: var(--radius-md);
+      }
+
+      /* ---------- SURVEY SECTION ---------- */
+      .frame-card {
+        border-radius: var(--radius-2xl);
+        overflow: hidden;
+        box-shadow: var(--shadow-lg);
+        width: 100%;
+        max-width: 820px;
+        margin: 0 auto;
+        background: rgba(17, 24, 39, 0.5);
+      }
+
       .frame-inner {
         position: relative;
         width: 100%;
-        /* Use fixed height with responsive cap so long forms still show well */
-        height: min(80vh, 900px);
+        height: 600px;
+        background: #090a12;
       }
+      
       .frame-inner iframe {
         position: absolute;
         inset: 0;
@@ -402,167 +761,292 @@
         border: 0;
       }
 
-      /* ---------- HIRE ---------- */
-      .hire {
-        padding: 56px 22px;
+      /* Loading fallback style inside container */
+      .frame-loading {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-muted);
+        font-weight: 500;
+        z-index: 0;
+      }
+
+      /* ---------- HIRE ME SECTION ---------- */
+      .developer-card {
+        padding: 56px 40px;
         text-align: center;
-        background: radial-gradient(
-            600px 300px at 15% 0%,
-            rgba(108, 92, 231, 0.25),
-            transparent 60%
-          ),
-          radial-gradient(
-            600px 300px at 85% 0%,
-            rgba(34, 211, 238, 0.25),
-            transparent 60%
-          ),
-          linear-gradient(
-            135deg,
-            rgba(108, 92, 231, 0.18),
-            rgba(34, 211, 238, 0.18)
-          );
         border-radius: var(--radius-2xl);
-        margin-top: 10px;
-        border: var(--border);
+        border: 1px solid rgba(99, 102, 241, 0.15);
+        background: 
+          radial-gradient(400px 300px at 0% 0%, rgba(99, 102, 241, 0.15) 0%, transparent 70%),
+          radial-gradient(400px 300px at 100% 100%, rgba(6, 182, 212, 0.1) 0%, transparent 70%),
+          linear-gradient(135deg, rgba(17, 24, 39, 0.6) 0%, rgba(9, 10, 20, 0.7) 100%);
+        box-shadow: var(--shadow-lg);
+        position: relative;
+        overflow: hidden;
       }
-      .hire h2 {
-        margin: 0 0 10px;
+      
+      .developer-profile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 650px;
+        margin: 0 auto;
       }
-      .hire p {
-        margin: 0 auto 18px;
-        color: var(--text-dim);
-        max-width: 70ch;
+
+      .avatar-wrapper {
+        position: relative;
+        width: 90px;
+        height: 90px;
+        border-radius: var(--radius-2xl);
+        background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+        padding: 3px;
+        margin-bottom: 24px;
+        box-shadow: 0 10px 25px rgba(99, 102, 241, 0.25);
       }
-      .hire .cta {
+      
+      .avatar-inner {
+        width: 100%;
+        height: 100%;
+        background: #0d0f1c;
+        border-radius: 21px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--font-heading);
+        font-weight: 900;
+        font-size: 32px;
+        color: #ffffff;
+        letter-spacing: -1px;
+      }
+
+      .developer-card h2 {
+        font-family: var(--font-heading);
+        font-size: 30px;
+        font-weight: 800;
+        margin-bottom: 8px;
+        letter-spacing: -0.5px;
+        background: linear-gradient(to right, #ffffff, #e0e7ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      
+      .developer-title {
+        font-size: 14px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        color: var(--accent);
+        margin-bottom: 18px;
+      }
+
+      .developer-card p {
+        font-size: 16px;
+        color: var(--text-secondary);
+        margin-bottom: 28px;
+        line-height: 1.6;
+      }
+      
+      /* Skills Badges */
+      .skills-grid {
         display: flex;
         justify-content: center;
-        gap: 12px;
+        gap: 10px;
         flex-wrap: wrap;
-        margin-top: 10px;
+        margin-bottom: 36px;
       }
-      .hire a {
-        display: inline-block;
-        padding: 14px 20px;
-        background: var(--primary);
-        color: #fff;
-        border-radius: 12px;
-        font-weight: 800;
-        transition: 0.25s;
-        border: 1px solid rgba(255, 255, 255, 0.12);
+      
+      .skill-tag {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--text-primary);
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 6px 14px;
+        border-radius: var(--radius-full);
+        transition: var(--transition-smooth);
       }
-      .hire a:hover {
-        background: var(--accent);
+      
+      .skill-tag:hover {
+        background: rgba(99, 102, 241, 0.08);
+        border-color: rgba(99, 102, 241, 0.25);
+        color: #a5b4fc;
+        transform: translateY(-2px);
+      }
+
+      /* Developer Links Buttons */
+      .dev-links {
+        display: flex;
+        justify-content: center;
+        gap: 16px;
+        flex-wrap: wrap;
+        width: 100%;
+      }
+      
+      .dev-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 14px 26px;
+        border-radius: var(--radius-xl);
+        font-weight: 700;
+        font-size: 15px;
+        transition: var(--transition-smooth);
+      }
+      
+      .dev-btn.primary {
+        background: #ffffff;
+        color: var(--bg-dark);
+        box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+      }
+      
+      .dev-btn.primary:hover {
+        background: #f3f4f6;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2);
+      }
+
+      .dev-btn.secondary {
+        background: rgba(255, 255, 255, 0.03);
+        color: #ffffff;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      
+      .dev-btn.secondary:hover {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.2);
         transform: translateY(-2px);
       }
 
       /* ---------- FOOTER ---------- */
-      .footer {
-        margin-top: 24px;
-        padding: 26px;
-        border-top: var(--border);
+      footer {
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+        padding: 40px 0;
+        margin-top: 40px;
+        font-size: 14px;
+        color: var(--text-muted);
+      }
+      
+      .footer-inner {
         display: flex;
         flex-wrap: wrap;
-        gap: 12px;
+        gap: 20px;
         justify-content: space-between;
-        color: var(--muted);
-        font-size: 14px;
+        align-items: center;
+      }
+      
+      .footer-links {
+        display: flex;
+        gap: 24px;
+      }
+      
+      .footer-links a {
+        transition: var(--transition-smooth);
+      }
+      
+      .footer-links a:hover {
+        color: var(--text-primary);
+      }
+      
+      .copyright strong {
+        color: var(--text-secondary);
       }
 
-      /* ---------- RESPONSIVE ---------- */
+      /* ---------- RESPONSIVE LAYOUTS ---------- */
       @media (max-width: 980px) {
         .hero {
           grid-template-columns: 1fr;
           text-align: center;
-          gap: 28px;
+          gap: 40px;
+          padding: 60px 0 40px;
         }
-        .actions {
-          justify-content: center;
+        
+        .hero-content {
+          align-items: center;
         }
-        .disclaimers {
+        
+        .sub {
           margin-left: auto;
           margin-right: auto;
         }
-        .phone {
-          transform: none;
-        }
-      }
-      @media (max-width: 640px) {
-        .container {
-          padding: 18px;
-        }
-        .logo img {
-          width: 52px;
-          height: 52px;
-        }
-        .badge {
-          width: 100%;
+        
+        .actions {
           justify-content: center;
         }
-      }
-      /* ---------- SOCIAL PROOF ---------- */
-      .socialproof {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        flex-wrap: wrap;
-        margin-top: 6px;
-      }
-      .as-seen {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: 6px 10px;
-        border-radius: 999px;
-        border: var(--border);
-        background: linear-gradient(
-          180deg,
-          rgba(255, 255, 255, 0.06),
-          rgba(255, 255, 255, 0.02)
-        );
-        color: var(--text-dim);
-        font-weight: 700;
-        font-size: 12px;
-        letter-spacing: 0.3px;
-      }
-      .as-seen .spark {
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: var(--accent);
-        box-shadow: 0 0 8px var(--accent);
-      }
-      .badge-embed {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 8px 10px;
-        border-radius: 12px;
-        border: var(--border);
-        background: linear-gradient(
-          180deg,
-          rgba(255, 255, 255, 0.06),
-          rgba(255, 255, 255, 0.02)
-        );
-        box-shadow: var(--shadow-sm);
-        transition: transform 0.2s ease, box-shadow 0.2s ease,
-          background 0.2s ease;
-      }
-      .badge-embed:hover {
-        transform: translateY(-2px);
-        box-shadow: var(--shadow-lg);
-      }
-      .badge-embed img {
-        height: 44px;
-        display: block;
-        width: auto;
-        filter: saturate(0.95) contrast(1.05);
-      }
-      @media (max-width: 640px) {
+        
         .socialproof {
           justify-content: center;
         }
-        .badge-embed img {
-          height: 40px;
+        
+        .disclaimers-card {
+          margin-left: auto;
+          margin-right: auto;
+          text-align: left;
+        }
+        
+        .bento-grid {
+          gap: 16px;
+        }
+        
+        .bento-card {
+          grid-column: span 6;
+        }
+        
+        .bento-card.large-row {
+          grid-column: span 12;
+        }
+      }
+      
+      @media (max-width: 680px) {
+        .container {
+          padding: 0 20px;
+        }
+        
+        .nav {
+          height: 64px;
+        }
+        
+        .logo img {
+          width: 36px;
+          height: 36px;
+        }
+        
+        .logo span {
+          font-size: 19px;
+        }
+        
+        .btn-download {
+          width: 100%;
+          justify-content: center;
+        }
+        
+        .bento-card {
+          grid-column: span 12;
+          padding: 24px;
+        }
+        
+        .developer-card {
+          padding: 40px 20px;
+        }
+        
+        .dev-btn {
+          width: 100%;
+          justify-content: center;
+        }
+        
+        .footer-inner {
+          flex-direction: column;
+          gap: 16px;
+          text-align: center;
+        }
+        
+        .footer-links {
+          width: 100%;
+          justify-content: center;
+          flex-wrap: wrap;
+          gap: 16px;
         }
       }
     </style>
@@ -575,7 +1059,7 @@
       <div class="orb three"></div>
     </div>
 
-    <!-- HEADER -->
+    <!-- HEADER / NAV -->
     <header>
       <div class="container nav">
         <div class="logo">
@@ -583,43 +1067,40 @@
           <span>Expenso</span>
         </div>
         <div class="top-cta">
-          <span class="pill"
-            ><span class="dot"></span> Test APK</span
-          >
+          <span class="pill"><span class="dot"></span> Test APK</span>
         </div>
       </div>
     </header>
 
     <main class="container">
-      <!-- HERO -->
+      <!-- HERO SECTION -->
       <section class="hero" id="home">
-        <div>
-          <span class="eyebrow"
-            ><span class="spark"></span> AI-enhanced personal finance</span
-          >
-          <h1 class="headline">Meet Expenso: Your Smart Money Sidekick</h1>
+        <div class="hero-content">
+          <span class="eyebrow"><span class="spark"></span> AI-enhanced personal finance</span>
+          <h1 class="headline">Your Smart Money Sidekick</h1>
           <p class="sub">
-            Track expenses with AI receipt scanning, plan budgets, never miss a
-            bill, and monitor investments — all in one sleek app.
+            Snap receipts with AI scanning, track investments, plan budgets, and organize bank notifications — all in one gorgeous, privacy-first offline app.
           </p>
 
-          <!-- ✅ Download kept exactly as provided -->
+          <!-- APK Download CTA -->
           <div class="actions">
             <a
-              class="badge"
+              class="btn-download"
               href="Expenso%3A%20Your%20Smart%20Money%20Sidekick.apk"
               download="Expenso-Your-Smart-Money-Sidekick.apk"
               aria-label="Download Expenso Android APK"
             >
-              <img src="icon.png" alt="Expenso APK" />
-              Download Android APK
+              <img src="icon.png" alt="Expenso APK Logo" />
+              <div class="btn-download-text">
+                <span class="subtitle">Download for Android</span>
+                <span class="title">Get Expenso APK</span>
+              </div>
             </a>
           </div>
 
           <!-- Social proof badges -->
           <div class="socialproof" role="group" aria-label="Social proof">
-            <span class="as-seen"><span class="spark"></span> As seen on</span>
-
+            <span class="as-seen"><span class="spark"></span> Featured On</span>
             <a
               class="badge-embed"
               href="https://peerlist.io/arunknair/project/expenso--your-smart-money-sidekick"
@@ -634,25 +1115,31 @@
             </a>
           </div>
 
-          <div class="disclaimers">
-            <div>
-              ⚠️ <strong>Disclaimer:</strong> This is a test project I built
-              solo with zero budget. I couldn’t publish on the App Store because
-              I can’t afford the Apple Developer plan. The Android APK is
-              provided for demo purposes only.
+          <!-- Transparency/Disclaimer Cards -->
+          <div class="disclaimers-card">
+            <div class="disclaimer-item">
+              <span class="disclaimer-icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              </span>
+              <div>
+                <strong>Non-commercial pet project:</strong> Built completely solo with zero budget. Lacking funding for Apple developer fees ($99/yr), the App Store version isn't published. Android APK is offered for testing.
+              </div>
             </div>
-            <div>
-              Built by <strong>Arun K Nair</strong> — a personal pet project.
-              Due to no funding, this isn’t meant for large-scale usage unless a
-              paid Supabase plan is used. With paid infrastructure, this can be
-              made commercially available.
+            <div class="disclaimer-item">
+              <span class="disclaimer-icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+              </span>
+              <div>
+                <strong>Scale limits:</strong> Runs locally. Online cloud sync is built with Supabase but requires a paid hosting plan for high usage. Available for license or commercialization.
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- ✅ Phone preview kept (structure & video source unchanged) -->
-        <div class="phone-wrap">
-          <div class="phone">
+        <!-- Phone Preview Mockup (With 3D Tilt script context) -->
+        <div class="phone-wrap" id="phoneContainer">
+          <div class="phone-glow-bg"></div>
+          <div class="phone" id="tiltPhone">
             <div class="notch"></div>
             <div class="screen">
               <video id="demoVideo" autoplay loop muted playsinline>
@@ -663,117 +1150,275 @@
         </div>
       </section>
 
-      <!-- SURVEY -->
+      <!-- FEATURES BENTO GRID -->
+      <section class="section" id="features">
+        <div class="section-header">
+          <h2>Master your money with smart features</h2>
+          <p class="lead">
+            Expenso combines offline privacy, intelligent automation, and investment tracking in a gorgeous fluid design.
+          </p>
+        </div>
+
+        <div class="bento-grid">
+          <!-- AI SCANNING: Large Card -->
+          <article class="bento-card glass large-row accent-purple">
+            <span class="card-tag">Google Gemini</span>
+            <div class="card-icon-wrap">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="7.5 4.21 12 6.81 16.5 4.21"/><polyline points="7.5 19.79 7.5 14.67 12 12.01 16.5 14.67 16.5 19.79"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+            </div>
+            <h3>AI Receipt Scanning</h3>
+            <p>
+              Snap a picture of any invoice or store receipt. Expenso passes it securely to Google Gemini AI to auto-extract the merchant, date, exact total, and correct tax categories without manual entry.
+            </p>
+            <div class="bento-visual">
+              <span class="bento-badge">OCR Extraction</span>
+              <span class="bento-badge">Auto Categorization</span>
+            </div>
+          </article>
+
+          <!-- INVESTMENTS: Large Card -->
+          <article class="bento-card glass large-row accent-cyan">
+            <span class="card-tag">Realtime APIs</span>
+            <div class="card-icon-wrap">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+            </div>
+            <h3>Investments Tracker</h3>
+            <p>
+              Monitor stocks, exchange assets, and crypto portfolios. Connects live to CoinGecko and Yahoo Finance APIs to update your net asset values, chart gains/losses, and display visual trends on modern charts.
+            </p>
+            <div class="bento-visual">
+              <span class="bento-badge">Yahoo Finance API</span>
+              <span class="bento-badge">CoinGecko API</span>
+              <span class="bento-badge">Live Charts</span>
+            </div>
+          </article>
+
+          <!-- HEATMAP -->
+          <article class="bento-card glass accent-emerald">
+            <span class="card-tag">Interactive</span>
+            <div class="card-icon-wrap">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </div>
+            <h3>Interactive Heatmap</h3>
+            <p>
+              Spot daily spending frequencies in a beautiful visual calendar grid. Plus, shake your physical phone to activate custom reanimated physics that drop virtual money coins on your screen.
+            </p>
+            <div class="bento-visual">
+              <span class="bento-badge">Shake Sensor</span>
+              <span class="bento-badge">Reanimated Physics</span>
+            </div>
+          </article>
+
+          <!-- SMS BANK IMPORT -->
+          <article class="bento-card glass accent-indigo">
+            <span class="card-tag">Android exclusive</span>
+            <div class="card-icon-wrap">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <h3>SMS Bank Import</h3>
+            <p>
+              Read incoming SMS notifications from banking services locally. Utilizes pattern-matching filters to read amount, vendor, and bank names, creating transactions instantly upon purchase.
+            </p>
+            <div class="bento-visual">
+              <span class="bento-badge">Regex Parser</span>
+              <span class="bento-badge">Local Processing</span>
+            </div>
+          </article>
+
+          <!-- BUDGET PLANNING -->
+          <article class="bento-card glass accent-warning">
+            <span class="card-tag">Control</span>
+            <div class="card-icon-wrap">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+            </div>
+            <h3>Smart Budgeting</h3>
+            <p>
+              Establish custom financial limits on target spending groups. Keep track of transactions in real-time, receiving prompt warnings before you overspend.
+            </p>
+            <div class="bento-visual">
+              <span class="bento-badge">Progress Rings</span>
+              <span class="bento-badge">Alert limits</span>
+            </div>
+          </article>
+
+          <!-- SUBSCRIPTIONS DETECTOR -->
+          <article class="bento-card glass accent-purple">
+            <span class="card-tag">Algorithmic</span>
+            <div class="card-icon-wrap">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+            </div>
+            <h3>Subscription Detection</h3>
+            <p>
+              Spot recurring charges automatically. Analyze payment intervals and price standard deviation patterns to find silent SaaS or app subscriptions you forgot to cancel.
+            </p>
+            <div class="bento-visual">
+              <span class="bento-badge">Pattern Finder</span>
+              <span class="bento-badge">Standard Deviation</span>
+            </div>
+          </article>
+
+          <!-- OFFLINE SYNC -->
+          <article class="bento-card glass accent-cyan">
+            <span class="card-tag">Supabase</span>
+            <div class="card-icon-wrap">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </div>
+            <h3>Offline Sync</h3>
+            <p>
+              Add expenses securely without network connections. Data stores locally using AsyncStorage, and automatically uploads to Supabase online tables once you're back online.
+            </p>
+            <div class="bento-visual">
+              <span class="bento-badge">AsyncStorage</span>
+              <span class="bento-badge">NetInfo Listeners</span>
+              <span class="bento-badge">Cloud Sync</span>
+            </div>
+          </article>
+
+          <!-- REMINDERS & GOALS -->
+          <article class="bento-card glass accent-emerald">
+            <span class="card-tag">Alerts</span>
+            <div class="card-icon-wrap">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <h3>Bill Alerts & Goals</h3>
+            <p>
+              Schedule alerts for monthly rentals or utility payments, and track personal savings milestones with circular progress bars using SVG render shapes.
+            </p>
+            <div class="bento-visual">
+              <span class="bento-badge">Expo Notifications</span>
+              <span class="bento-badge">SVG rings</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- SURVEY SECTION (Responsive Dark Wrapper) -->
       <section class="section" id="survey">
-        <h2>Would you use Expenso if it were paid?</h2>
-        <p class="lead">
-          Your feedback helps decide whether to take Expenso to a
-          production-grade release.
-        </p>
-        <div class="frame-wrap">
+        <div class="section-header">
+          <h2>Would you use Expenso if it were paid?</h2>
+          <p class="lead">
+            Your honest feedback will guide decisions on hosting costs and releasing it commercially.
+          </p>
+        </div>
+        <div class="frame-card glass">
           <div class="frame-inner">
+            <!-- Loading skeleton fallback -->
+            <div class="frame-loading">Connecting to form...</div>
             <iframe
               title="Expenso Feedback Form"
               src="https://docs.google.com/forms/d/e/1FAIpQLSc7vhYPv8takL_xIL3kAyuDMoI-FBCtmqOtSiqTVCjinmp9Tg/viewform?embedded=true"
-              >Loading…</iframe
+              style="z-index: 1;"
+              >Loading feedback form…</iframe
             >
           </div>
         </div>
       </section>
 
-      <!-- FEATURES -->
-      <section class="section" id="features">
-        <h2>Everything you need to master your money</h2>
-        <p class="lead">
-          From capturing receipts to forecasting trends — Expenso keeps you in
-          control.
-        </p>
-
-        <div class="features">
-          <article class="feature">
-            <span class="tag">AI</span>
-            <h3>🧾 AI Receipt Scanning</h3>
+      <!-- DEVELOPER SPOTLIGHT / CONTACT -->
+      <section class="section" id="contact">
+        <div class="developer-card glass">
+          <div class="developer-profile">
+            <div class="avatar-wrapper">
+              <div class="avatar-inner">AK</div>
+            </div>
+            <h2>Arun K Nair</h2>
+            <div class="developer-title">App Developer & Designer</div>
             <p>
-              Snap a receipt — Expenso extracts merchant, date, amount, and
-              category automatically.
+              Hi, I'm Arun! I design and develop clean, smart application systems. Expenso was built completely from scratch as a personal challenge. If you appreciate this work or want to talk about open opportunities, please get in touch!
             </p>
-          </article>
+            
+            <div class="skills-grid">
+              <span class="skill-tag">React Native</span>
+              <span class="skill-tag">Expo Sensors</span>
+              <span class="skill-tag">Google Gemini AI</span>
+              <span class="skill-tag">Supabase Sync</span>
+              <span class="skill-tag">API Integration</span>
+              <span class="skill-tag">UI/UX Design</span>
+            </div>
 
-          <article class="feature">
-            <span class="tag">Budgets</span>
-            <h3>📊 Smart Budget Planning</h3>
-            <p>
-              Create budgets with real-time alerts before overspending happens.
-            </p>
-          </article>
-
-          <article class="feature">
-            <span class="tag">Reminders</span>
-            <h3>🔔 Bill Reminders</h3>
-            <p>
-              Smart reminders for bills, loans, and subscriptions. Snooze or
-              mark as paid instantly.
-            </p>
-          </article>
-
-          <article class="feature">
-            <span class="tag">Insights</span>
-            <h3>📈 AI Insights</h3>
-            <p>
-              Discover spending patterns with heatmaps, health scores, and
-              money-saving tips.
-            </p>
-          </article>
-        </div>
-      </section>
-
-      <!-- HIRE ME -->
-      <section class="hire" id="contact">
-        <h2>💼 Hire Me</h2>
-        <p>
-          If you like what you see in Expenso, I’d love to work with you. Check
-          out my portfolio or connect with me on LinkedIn.
-        </p>
-        <div class="cta">
-          <a
-            href="https://arunknair.netlify.app/"
-            target="_blank"
-            rel="noopener"
-            >🌐 Visit My Portfolio</a
-          >
-          <a
-            href="https://www.linkedin.com/in/arunknair-/"
-            target="_blank"
-            rel="noopener"
-            >🔗 Connect on LinkedIn</a
-          >
+            <div class="dev-links">
+              <a
+                href="https://arunknair.netlify.app/"
+                target="_blank"
+                rel="noopener"
+                class="dev-btn primary"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                Visit My Portfolio
+              </a>
+              <a
+                href="https://www.linkedin.com/in/arunknair-/"
+                target="_blank"
+                rel="noopener"
+                class="dev-btn secondary"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                Connect on LinkedIn
+              </a>
+            </div>
+          </div>
         </div>
       </section>
 
       <!-- FOOTER -->
-      <footer class="footer">
-        <div>
-          © <span id="year"></span> Expenso. Built with ❤️ by Arun K Nair.
+      <footer>
+        <div class="container footer-inner">
+          <div class="copyright">
+            © <span id="year"></span> <strong>Expenso</strong>. Crafted with ❤️ by Arun K Nair.
+          </div>
+          <div class="footer-links">
+            <a href="#home">Home</a>
+            <a href="#features">Features</a>
+            <a href="#survey">Survey</a>
+            <a href="#contact">Contact</a>
+          </div>
+          <div>Privacy-friendly • Zero tracking scripts</div>
         </div>
-        <div>Privacy-friendly • No trackers on this demo</div>
       </footer>
     </main>
 
+    <!-- INTERACTIVE SCRIPTS -->
     <script>
-      // Current year
+      // Automatically set the footer copyright year
       document.getElementById("year").textContent = new Date().getFullYear();
 
-      // Autoplay fallback for some browsers if needed
+      // Video autoplay fallback logic
       const v = document.getElementById("demoVideo");
       if (v) {
-        const tryPlay = () =>
-          v.play().catch(() => {
-            /* ignore */
-          });
-        document.addEventListener("visibilitychange", tryPlay, {
-          passive: true,
-        });
+        const tryPlay = () => v.play().catch(() => { /* autoplay blocked */ });
+        document.addEventListener("visibilitychange", tryPlay, { passive: true });
         window.addEventListener("focus", tryPlay, { passive: true });
+      }
+
+      // Premium 3D Interactive Phone Tilt Effect
+      const phoneContainer = document.getElementById("phoneContainer");
+      const tiltPhone = document.getElementById("tiltPhone");
+
+      if (phoneContainer && tiltPhone && window.matchMedia("(min-width: 981px)").matches) {
+        phoneContainer.addEventListener("mousemove", (e) => {
+          const rect = phoneContainer.getBoundingClientRect();
+          const x = e.clientX - rect.left - rect.width / 2;
+          const y = e.clientY - rect.top - rect.height / 2;
+          
+          // Calculate rotation degrees (cap values at 12deg max)
+          const rotateX = -(y / rect.height) * 24;
+          const rotateY = (x / rect.width) * 24;
+          
+          tiltPhone.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+
+        phoneContainer.addEventListener("mouseleave", () => {
+          // Smooth return to base subtle resting tilt
+          tiltPhone.style.transform = "rotateX(6deg) rotateY(-8deg)";
+          tiltPhone.style.transition = "transform 0.5s ease-out";
+        });
+
+        phoneContainer.addEventListener("mouseenter", () => {
+          tiltPhone.style.transition = "transform 0.05s ease-out";
+        });
+      } else if (tiltPhone) {
+        // Safe base transformation for touch/tablet devices
+        tiltPhone.style.transform = "none";
       }
     </script>
   </body>
