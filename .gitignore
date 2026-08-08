@@ -1,0 +1,6 @@
+*.apk
+*.mp4
+# VS Code workspace / settings
+.vscode/
+expenso.code-workspace
+.DS_Store
